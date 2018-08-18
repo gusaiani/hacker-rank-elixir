@@ -14,8 +14,8 @@ defmodule MarsExploration do
   defp countWrongChars(list) do
     base_string_length = String.length(@base_string)
 
-    %{wrong_char_count: wrong_char_count} = Enum.reduce(list, %{index: 0, wrong_char_count: 0}, fn (char, acc) ->
-      %{index: index, wrong_char_count: wrong_char_count} = acc
+    {_, wrong_char_count} = Enum.reduce(list, {0, 0}, fn (char, acc) ->
+      {index, wrong_char_count} = acc
 
       char_to_compare =
         @base_string
@@ -26,7 +26,7 @@ defmodule MarsExploration do
         false -> wrong_char_count + 1
       end
 
-      %{index: index + 1, wrong_char_count: wrong_char_count}
+      {index + 1, wrong_char_count}
     end)
 
     wrong_char_count

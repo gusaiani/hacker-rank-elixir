@@ -43,7 +43,7 @@ defmodule CavityMap do
     check_row([n] ++ t, acc ++ [treated])
   end
 
-  defp check_row([h | []], acc) do
+  defp check_row([_ | []], acc) do
     acc
   end
 
@@ -54,10 +54,10 @@ defmodule CavityMap do
       new_item = cond do
         index == 0 -> item
         index == (length(n) - 1) -> item
-        Enum.at(n, index) < Enum.at(h, index) -> item
-        Enum.at(n, index) < Enum.at(t, index) -> item
-        Enum.at(n, index) < Enum.at(n, index - 1) -> item
-        Enum.at(n, index) < Enum.at(n, index + 1) -> item
+        Enum.at(n, index) <= Enum.at(h, index) -> item
+        Enum.at(n, index) <= Enum.at(t, index) -> item
+        Enum.at(n, index) <= Enum.at(n, index - 1) -> item
+        Enum.at(n, index) <=Enum.at(n, index + 1) -> item
         true -> "X"
       end
 

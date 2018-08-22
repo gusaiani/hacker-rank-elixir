@@ -1,7 +1,7 @@
 defmodule CavityMapTest do
   use ExUnit.Case
 
-  test "Test picking_numbers with max of 3" do
+  test "One test" do
     list = """
     1112
     1912
@@ -11,4 +11,16 @@ defmodule CavityMapTest do
     result = "1112\n1X12\n18X2\n1234"
     assert CavityMap.main(list) == result
   end
+
+  test "Another test" do
+    list = """
+    9999
+    9999
+    9999
+    9999
+    """
+    result = "9999\n9999\n9999\n9999"
+    assert CavityMap.main(list) == result
+  end
+
 end

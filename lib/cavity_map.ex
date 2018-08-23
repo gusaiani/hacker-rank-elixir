@@ -48,24 +48,25 @@ defmodule CavityMap do
   end
 
   defp treat(h, n, t) do
-    {_, treated} = Enum.reduce(n, {0, []}, fn item, acc ->
-      {index, new_list} = acc
-
-      new_item = cond do
-        index == 0 -> item
-        index == (length(n) - 1) -> item
-        Enum.at(n, index) <= Enum.at(h, index) -> item
-        Enum.at(n, index) <= Enum.at(t, index) -> item
-        Enum.at(n, index) <= Enum.at(n, index - 1) -> item
-        Enum.at(n, index) <=Enum.at(n, index + 1) -> item
-        true -> "X"
-      end
-
+    {_, treated} = Enum.reduce(n, {0, []}, fn item, {index, new_list} ->
+      new_item = update_if_cavity(h, n, t, index, item)
       {index + 1, new_list ++ [new_item]}
     end)
 
     treated
   end
+
+  defp update_if_cavity(h, n, t, index, item) do
+    cond do
+      index == 0 -> item
+      index == (length(n) - 1) -> item
+      item <= Enum.at(h, index) -> item
+      item <= Enum.at(t, index) -> item
+      item <= Enum.at(n, index - 1) -> item
+      item <= Enum.at(n, index + 1) -> item
+      true -> "X"
+    end
+end
 
   defp convert_to_string(list) do
     list

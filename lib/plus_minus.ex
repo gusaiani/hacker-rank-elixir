@@ -8,7 +8,7 @@ defmodule PlusMinus do
     arr
     |> process_signals(0, 0, 0)
     |> Enum.map(fn n -> n / length(arr) end)
-    |> Enum.map(fn n -> :erlang.float_to_binary(n, [decimals: 6]) end)
+    |> Enum.map(fn n -> :erlang.float_to_binary(n, decimals: 6) end)
   end
 
   defp process_signals([], positive, negative, zeroes) do
@@ -16,12 +16,12 @@ defmodule PlusMinus do
   end
 
   defp process_signals([h | t], positive, negative, zeroes)
-      when h > 0 do
+       when h > 0 do
     process_signals(t, positive + 1, negative, zeroes)
   end
 
   defp process_signals([h | t], positive, negative, zeroes)
-      when h < 0 do
+       when h < 0 do
     process_signals(t, positive, negative + 1, zeroes)
   end
 

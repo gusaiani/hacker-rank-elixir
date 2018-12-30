@@ -12,21 +12,21 @@ defmodule Hourglasses do
   def largest_sum(list) do
     list
     |> maxes
-    |> Enum.max
+    |> Enum.max()
   end
 
   def maxes(list) do
     max_sum = nil
     dimension = dimension(list)
 
-    for i <- 0..(dimension - 3), j <- (0..dimension - 3) do
+    for i <- 0..(dimension - 3), j <- 0..(dimension - 3) do
       sum = sum(list, i + j * dimension)
       new_max_sum(sum, max_sum)
     end
   end
 
   def dimension(list) do
-    list |> length |> :math.sqrt |> trunc
+    list |> length |> :math.sqrt() |> trunc
   end
 
   def index_modifiers(dimension) do
@@ -37,7 +37,7 @@ defmodule Hourglasses do
     dimension = dimension(list)
     modifiers = index_modifiers(dimension)
 
-    Enum.reduce(modifiers, 0, fn (modifier, acc) ->
+    Enum.reduce(modifiers, 0, fn modifier, acc ->
       acc + Enum.at(list, first_index + modifier)
     end)
   end
